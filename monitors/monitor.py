@@ -36,21 +36,21 @@ if __name__ == "__main__":
     price_topic = "current-price"
     broadcast_consumer = KafkaConsumer(price_topic, **kafka_config)
     for msg in broadcast_consumer:
-    feed = msg.value
-    current_price = feed["fill_price"]
-    fill_timestamp = feed["fill_timestamp"]
-    if feed["level_2"] == {}:
-        continue
-    orderbooks = feed["level_2"]
-    buy_book, sell_book = build_barplot_data(orderbooks["buy"]), build_barplot_data(orderbooks["sell"], buy=False)
+        feed = msg.value
+        current_price = feed["fill_price"]
+        fill_timestamp = feed["fill_timestamp"]
+        if feed["level_2"] == {}:
+            continue
+        orderbooks = feed["level_2"]
+        buy_book, sell_book = build_barplot_data(orderbooks["buy"]), build_barplot_data(orderbooks["sell"], buy=False)
     # concatenate two order books
 
-    orderbook = pd.concat([buy_book, sell_book])
-    # https://stackoverflow.com/questions/62579826/altair-bar-chart-assign-specific-colors-based-on-dataframe-column
-    alt_chart = alt.Chart(orderbook, width = 1000, height = 600).mark_bar().encode(
-        x='prices',
-        y='depths',
-        color="colors:N"
-        )
+        orderbook = pd.concat([buy_book, sell_book])
+        # https://stackoverflow.com/questions/62579826/altair-bar-chart-assign-specific-colors-based-on-dataframe-column
+        alt_chart = alt.Chart(orderbook, width = 1000, height = 600).mark_bar().encode(
+            x='prices',
+            y='depths',
+            color="colors:N"
+            )
 
-    st_canvas.altair_chart(alt_chart)
+        st_canvas.altair_chart(alt_chart)
