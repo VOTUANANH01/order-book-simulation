@@ -5,7 +5,7 @@
   - [Part 2 MLOps on your local machines and AWS](#part-2-mlops-on-your-local-machines-and-aws)
 
 ## Note:
-- Order run: engine.py => bot.py => monitor.py
+- Order run: engine.py => bots.py => monitor.py
 - monitor.py should run by following command: streamlit run monitor.py
 
 ## Part 1 Simulation with Kafka and Streamlit
